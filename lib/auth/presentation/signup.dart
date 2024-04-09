@@ -160,7 +160,7 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'У меня уже есть аккаунт!',
+                      'У меня уже есть аккаунт! ',
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
