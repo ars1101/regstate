@@ -7,6 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
+import 'package:session1_new/home/presentation/chooseplatform.dart';
 import 'package:session1_new/main.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -187,7 +188,8 @@ class _SetupProfileState extends State<SetupProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                      child: IconButton(onPressed: (){}, icon: Icon(Icons.add)), height: 40, width: 40,),
+                                      child: IconButton(onPressed: (){Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => ChoosePlat()));}, icon: Icon(Icons.add)), height: 40, width: 40,),
                                 ],
                               )
                             ],

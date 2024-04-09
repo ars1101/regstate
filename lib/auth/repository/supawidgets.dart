@@ -15,3 +15,4 @@ Future<User?> Verifyotp(String otp, String email) async {
 Future<void> newpassword(newpass) async {
   await supabase.auth.updateUser(UserAttributes(password: newpass));
 }
+
