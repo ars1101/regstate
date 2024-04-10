@@ -85,7 +85,7 @@ class _SetupProfileState extends State<SetupProfile> {
                         child: CustomTextField(
                             label: "ФИО",
                             hint: "Введите ваше ФИО",
-                            obs: obs,
+                            obs: false,
                             ctr: name),
                       ),
                       SizedBox(
@@ -97,7 +97,7 @@ class _SetupProfileState extends State<SetupProfile> {
                         child: CustomTextField(
                             label: "Телефон",
                             hint: "+7 (000) 000 00 00",
-                            obs: obs,
+                            obs: false,
                             ctr: phone),
                       ),
                       SizedBox(

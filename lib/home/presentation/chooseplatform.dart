@@ -29,6 +29,7 @@ class _ChoosePlatState extends State<ChoosePlat> {
     getPlatforms().then((value) => setState(() {
           allplatforms = value;
           setState(() {
+            print(allplatforms);
           });
         }));
   }
@@ -44,72 +45,96 @@ class _ChoosePlatState extends State<ChoosePlat> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFFFFFAF0),
-        body: Row(
-          children: [
-            SizedBox(
-              width: 24,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 67,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Image.asset('assets/close.png')),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Text(
-                      "Выберите платформу",
-                      style: TextStyle(
-                          color: Color(
-                            0xFF3A3A3A,
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 24,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 67,
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: Image.asset('assets/close.png')),
+                          SizedBox(
+                            width: 16,
                           ),
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500),
+                          Text(
+                            "Выберите платформу",
+                            style: TextStyle(
+                                color: Color(
+                                  0xFF3A3A3A,
+                                ),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 22,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 24,
+                  )
+                ],
+              ),
+            ),
+            SliverList.builder(
+              itemBuilder: (_, index) {
+                bool isadded = false;
+                var plat = allplatforms[index];
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.network(
+                          plat['icon'],
+                          scale: 10,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(plat['title']),
+                        Spacer(),
+                        IconButton(
+                            onPressed: (!platforms.contains(allplatforms[index]))
+                                ? () {
+
+                                    setState(() {
+                                      isadded = true;
+                                      platforms.add(plat);
+                                      print(isadded);
+                                    });
+                                  }
+                                : () {
+
+                                    setState(() {
+                                      isadded = false;
+                                      platforms.remove(plat);
+                                      print(isadded);
+                                    });
+                                  },
+                            icon: Image.asset((isadded == true)
+                                ? 'assets/ok.png'
+                                : 'assets/plus.png'))
+                      ],
                     )
                   ],
-                ),
-                SizedBox(
-                  height: 22,
-                ),
-                ListView.builder(
-                  itemBuilder: (_, index) {
-                    bool isadded = false;
-                    var plat = allplatforms[index];
-                    return Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.network(plat['icon']),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(plat['title']),
-                            Spacer(),
-                            IconButton(onPressed: (isadded)?() {isadded = !isadded;
-                            platforms.remove(plat);
-                            }:() {
-                              isadded = !isadded;
-                              platforms.add(plat);
-                            }, icon: Image.asset((isadded)?'assets/ok.png':'assets/plus.png' ))
-                          ],
-                        )
-                      ],
-                    );
-                  },
-                  itemCount: allplatforms.length,
-                )
-              ],
-            ),
-            SizedBox(
-              width: 24,
+                );
+              },
+              itemCount: allplatforms.length,
             )
           ],
         ));
