@@ -8,6 +8,7 @@ import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
 import 'package:session1_new/home/presentation/chooseplatform.dart';
+import 'package:session1_new/home/repository/supabase.dart';
 import 'package:session1_new/main.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -25,7 +26,15 @@ class SetupProfile extends StatefulWidget {
 
 class _SetupProfileState extends State<SetupProfile> {
   @override
-  void initState() {}
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPlatforms().then((value) => setState(() {
+      allplatforms = value;
+      setState(() {
+      });
+    }));
+  }
   bool isplat = false;
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();

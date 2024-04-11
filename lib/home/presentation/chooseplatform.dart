@@ -26,17 +26,8 @@ class ChoosePlat extends StatefulWidget {
 class _ChoosePlatState extends State<ChoosePlat> {
   @override
   void initState() {
-    getPlatforms().then((value) => setState(() {
-          allplatforms = value;
-          setState(() {
-            print(platforms);
-          });
-          setState(() {
-          });
-        }));
-    setState(() {
 
-    });
+
   }
 
   bool isplat = false;
@@ -122,6 +113,8 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                       platforms.add(plat);
                                       setState(() {
                                         print(platforms);
+                                        print(platforms == allplatforms);
+                                        print(allplatforms);
                                       });
                                     });
                                   }
@@ -135,7 +128,11 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                   },
                             icon: Image.asset((platforms.contains(allplatforms[index]))
                                 ? 'assets/ok.png'
-                                : 'assets/plus.png')),
+                                : 'assets/plus.png')), IconButton(
+                            onPressed: () {platforms.clear();},
+                            icon: Image.asset((platforms.contains(allplatforms[index]))
+                                ? 'assets/ok.png'
+                                : 'assets/plus.png'))
                       
                       ],
                     )
