@@ -29,14 +29,9 @@ class _ChoosePlatState extends State<ChoosePlat> {
     getPlatforms().then((value) => setState(() {
           allplatforms = value;
           setState(() {
-            print(platforms);
-          });
-          setState(() {
+            print(allplatforms);
           });
         }));
-    setState(() {
-
-    });
   }
 
   bool isplat = false;
@@ -82,8 +77,7 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                 ),
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500),
-                          ),
-
+                          )
                         ],
                       ),
                       SizedBox(
@@ -99,41 +93,42 @@ class _ChoosePlatState extends State<ChoosePlat> {
             ),
             SliverList.builder(
               itemBuilder: (_, index) {
+                bool isadded = false;
                 var plat = allplatforms[index];
                 return Column(
                   children: [
                     Row(
-                      children: [SizedBox(width: 22,),
+                      children: [
                         Image.network(
                           plat['icon'],
-                          scale: 15,
+                          scale: 10,
                         ),
                         SizedBox(
                           width: 8,
                         ),
-                        Text(plat['title'], style: TextStyle(fontWeight: FontWeight.w500),),
+                        Text(plat['title']),
                         Spacer(),
                         IconButton(
-                            onPressed: (!platforms.map((e) => (){return e['id'];}).toList().contains(plat["id"]))
+                            onPressed: (!platforms.contains(allplatforms[index]))
                                 ? () {
+
                                     setState(() {
+                                      isadded = true;
                                       platforms.add(plat);
-                                      setState(() {
-                                        print(platforms);
-                                      });
+                                      print(isadded);
                                     });
                                   }
                                 : () {
+
                                     setState(() {
+                                      isadded = false;
                                       platforms.remove(plat);
-                                      setState(() {
-                                      });
+                                      print(isadded);
                                     });
                                   },
-                            icon: Image.asset((platforms.map((e) => (){return e['id'];}).toList().contains(plat["id"]))
+                            icon: Image.asset((isadded == true)
                                 ? 'assets/ok.png'
-                                : 'assets/plus.png')),
-                      
+                                : 'assets/plus.png'))
                       ],
                     )
                   ],

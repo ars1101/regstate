@@ -9,7 +9,6 @@ import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/forgotpass.dart';
 import 'package:session1_new/auth/presentation/signup.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
-import 'package:session1_new/home/presentation/main.dart';
 import 'package:session1_new/main.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -152,7 +151,7 @@ class _LogInState extends State<LogIn> {
                         var res = await supabase.auth.signInWithPassword(password: pass.text, email: email.text );
                         if(res != null){user = res.user;
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Home()));
+                            MaterialPageRoute(builder: (context) => Holder()));
                         }
                         } on AuthException catch(e){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
