@@ -99,7 +99,6 @@ class _ChoosePlatState extends State<ChoosePlat> {
             ),
             SliverList.builder(
               itemBuilder: (_, index) {
-                bool isadded = false;
                 var plat = allplatforms[index];
                 return Column(
                   children: [
@@ -115,10 +114,9 @@ class _ChoosePlatState extends State<ChoosePlat> {
                         Text(plat['title'], style: TextStyle(fontWeight: FontWeight.w500),),
                         Spacer(),
                         IconButton(
-                            onPressed: (!platforms.contains(allplatforms[index]))
+                            onPressed: (!platforms.map((e) => (){return e['id'];}).toList().contains(plat["id"]))
                                 ? () {
                                     setState(() {
-                                      isadded = true;
                                       platforms.add(plat);
                                       setState(() {
                                         print(platforms);
@@ -127,13 +125,12 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                   }
                                 : () {
                                     setState(() {
-                                      isadded = false;
                                       platforms.remove(plat);
                                       setState(() {
                                       });
                                     });
                                   },
-                            icon: Image.asset((platforms.contains(allplatforms[index]))
+                            icon: Image.asset((platforms.map((e) => (){return e['id'];}).toList().contains(plat["id"]))
                                 ? 'assets/ok.png'
                                 : 'assets/plus.png')),
                       
