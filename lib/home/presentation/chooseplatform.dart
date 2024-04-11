@@ -29,9 +29,14 @@ class _ChoosePlatState extends State<ChoosePlat> {
     getPlatforms().then((value) => setState(() {
           allplatforms = value;
           setState(() {
-            print(allplatforms);
+            print(platforms);
+          });
+          setState(() {
           });
         }));
+    setState(() {
+
+    });
   }
 
   bool isplat = false;
@@ -77,7 +82,8 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                 ),
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500),
-                          )
+                          ),
+
                         ],
                       ),
                       SizedBox(
@@ -98,39 +104,39 @@ class _ChoosePlatState extends State<ChoosePlat> {
                 return Column(
                   children: [
                     Row(
-                      children: [
+                      children: [SizedBox(width: 22,),
                         Image.network(
                           plat['icon'],
-                          scale: 10,
+                          scale: 15,
                         ),
                         SizedBox(
                           width: 8,
                         ),
-                        Text(plat['title']),
+                        Text(plat['title'], style: TextStyle(fontWeight: FontWeight.w500),),
                         Spacer(),
                         IconButton(
                             onPressed: (!platforms.contains(allplatforms[index]))
                                 ? () {
-
                                     setState(() {
-                                      print(allplatforms[index]);
-                                      print(platforms);
                                       isadded = true;
                                       platforms.add(plat);
-                                      print(isadded);
+                                      setState(() {
+                                        print(platforms);
+                                      });
                                     });
                                   }
                                 : () {
-
                                     setState(() {
                                       isadded = false;
                                       platforms.remove(plat);
-                                      print(isadded);
+                                      setState(() {
+                                      });
                                     });
                                   },
-                            icon: Image.asset((isadded == true)
+                            icon: Image.asset((platforms.contains(allplatforms[index]))
                                 ? 'assets/ok.png'
-                                : 'assets/plus.png'))
+                                : 'assets/plus.png')),
+                      
                       ],
                     )
                   ],
