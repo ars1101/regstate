@@ -113,6 +113,8 @@ class _ChoosePlatState extends State<ChoosePlat> {
                                 ? () {
 
                                     setState(() {
+                                      print(allplatforms[index]);
+                                      print(platforms);
                                       isadded = true;
                                       platforms.add(plat);
                                       print(isadded);
