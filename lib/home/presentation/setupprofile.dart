@@ -14,7 +14,6 @@ import 'package:session1_new/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-List platforms = [];
 
 
 class SetupProfile extends StatefulWidget {
@@ -23,6 +22,9 @@ class SetupProfile extends StatefulWidget {
   @override
   State<SetupProfile> createState() => _SetupProfileState();
 }
+
+List<Map<String, dynamic>> platforms = [];
+List plchan = [];
 
 class _SetupProfileState extends State<SetupProfile> {
   @override
@@ -210,7 +212,167 @@ class _SetupProfileState extends State<SetupProfile> {
                   ],
                 ),SizedBox(width: 24,)
               ],
-            ),)
+            ),),
+            SliverToBoxAdapter(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 24,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Источники новостей",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 48,
+                        height: 44 + (platforms.length * 91),
+                        decoration: BoxDecoration(
+                            color: Color(0xFFFFFAF0),
+                            borderRadius: BorderRadius.circular(4),
+                            border:
+                            Border.all(color: Color(0xFF5C636A), width: 1)),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Выберите платформы",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: IconButton(
+                                          onPressed: () async {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChoosePlat()))
+                                                .then((value) => setState(() {
+                                                      plchan.clear();
+                                                      for (var i in platforms) {
+                                                        plchan.add(
+                                                            TextEditingController());
+                                                      }
+                                                    }));
+                                          },
+                                          icon: Icon(Icons.add)),
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              child: ListView.builder(
+                                itemBuilder: (_, index) {
+                                  var plat = platforms[index];
+                                  return Container(
+                                    width:
+                                    MediaQuery.of(context).size.width - 48,
+                                    height: 91,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFFFFAF0),
+                                        border: Border.all(
+                                            color: Color(0xFF5C636A),
+                                            width: 1)),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {platforms.remove(plat); setState(() {});},
+                                                icon: Image.asset(
+                                                    'assets/cross.png')),
+                                            SizedBox(
+                                              width: 22,
+                                            ),
+                                            Image.network(
+                                              plat['icon'],
+                                              scale: 15,
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              plat['title'],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Spacer(),
+                                            IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset(
+                                                    'assets/info.png')),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          child: TextField(
+                                            controller: plchan[index],
+                                          ),
+                                          height: 25,
+                                          width: 325,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                                itemCount: platforms.length,
+                              ),
+                              height: 91 * platforms.length.toDouble(),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      SizedBox(
+                        height: 46,
+                        width: MediaQuery.of(context).size.width - 48,
+                        child: FilledButton(
+                          onPressed: () {
+                            for(int i = 0; i<platforms.length;i++){
+                              platforms[i]['chanels'] = plchan[i].text;
+                            }
+                            saveUserData(name.text, phone.text, date);
+                            savePlatforms(platforms);
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                builder: (context) =>
+                                    Holder()));
+                          },
+                          child: Text('Продолжить'),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 24,
+                  )
+                ],
+              ),
+            )
           ],
         ));
   }
