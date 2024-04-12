@@ -32,6 +32,11 @@ Future<void> saveUserData(
           }
       )
   );
+  print({
+    "fullname": fullname,
+    "phone": phone,
+    "birthday": birthday,
+  });
 }
 
 

@@ -8,6 +8,7 @@ import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
 import 'package:session1_new/home/presentation/chooseplatform.dart';
+import 'package:session1_new/home/presentation/main.dart';
 import 'package:session1_new/home/repository/supabase.dart';
 import 'package:session1_new/main.dart';
 
@@ -41,6 +42,8 @@ class _SetupProfileState extends State<SetupProfile> {
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController passc = TextEditingController();
+  String namee = '';
+  String phonee = '';
   bool obs = true;
   bool check = false;
   String date = "Выберете дату рождения";
@@ -97,7 +100,9 @@ class _SetupProfileState extends State<SetupProfile> {
                             label: "ФИО",
                             hint: "Введите ваше ФИО",
                             obs: false,
-                            ctr: name),
+                            ctr: name,onChanged: (t){setState(() {
+                          namee = t;
+                        });}),
                       ),
                       SizedBox(
                         height: 24,
@@ -109,7 +114,9 @@ class _SetupProfileState extends State<SetupProfile> {
                             label: "Телефон",
                             hint: "+7 (000) 000 00 00",
                             obs: false,
-                            ctr: phone),
+                            ctr: phone, onChanged: (t){setState(() {
+                          phonee = t;
+                            });},),
                       ),
                       SizedBox(
                         height: 24,
@@ -159,60 +166,7 @@ class _SetupProfileState extends State<SetupProfile> {
                 ],
               ),
             ),
-            SliverToBoxAdapter(child: Row(
-              children: [SizedBox(width: 24,),
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Источники новостей",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 48,
-                      height: 44+ (platforms.length * 107),
-                      decoration: BoxDecoration(
-                          color: Color(0xFFFFFAF0),
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                              color: Color(0xFF5C636A), width: 1)),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Выберите платформы",
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                      child: IconButton(onPressed: (){Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context) => ChoosePlat()));}, icon: Icon(Icons.add)), height: 40, width: 40,),
-                                ],
-                              )
-                            ],
-                          ),
 
-                        ],
-                      ),
-                    ),
-                  ],
-                ),SizedBox(width: 24,)
-              ],
-            ),),
             SliverToBoxAdapter(
               child: Row(
                 children: [
@@ -352,12 +306,13 @@ class _SetupProfileState extends State<SetupProfile> {
                             for(int i = 0; i<platforms.length;i++){
                               platforms[i]['chanels'] = plchan[i].text;
                             }
-                            saveUserData(name.text, phone.text, date);
+                            print(namee + phonee);
+                            saveUserData(namee, phonee, date);
                             savePlatforms(platforms);
                             Navigator.of(context)
                                 .push(MaterialPageRoute(
                                 builder: (context) =>
-                                    Holder()));
+                                    Home()));
                           },
                           child: Text('Продолжить'),
                         ),

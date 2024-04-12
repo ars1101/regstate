@@ -19,14 +19,20 @@ var Themes = ThemeData(
     fontFamily: 'Roboto',
     textTheme: TextTheme(
         titleLarge: TextStyle(
-            fontSize: 24,
+            fontSize: 18,
             color: Color(0xFF3A3A3A),
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             fontFamily: 'Roboto'),
         titleSmall: TextStyle(
             color: Color(0xFF5C636A),
             fontSize: 14,
-            fontWeight: FontWeight.w500)),
+            fontWeight: FontWeight.w500),
+    titleMedium: TextStyle(
+        fontSize: 14,
+        color: Color(0xFF3A3A3A),
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Roboto')
+    ),
     checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateProperty.resolveWith((states) {
           return (states.contains(MaterialState.selected))
@@ -38,3 +44,5 @@ var Themes = ThemeData(
         )));
 
 Color accent = Color(0xFF7576D6);
+Color sub_text = Color(0xFF5C636A);
+Color error = Color(0xFFCA0000);
