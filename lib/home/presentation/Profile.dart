@@ -149,7 +149,11 @@ class _ProfileState extends State<Profile> {
                     ),
                     onPressed: () {
                       supabase.auth.signOut();
-                    },  style: OutlinedButton.styleFrom(foregroundColor: error, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)), )),),
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                          builder: (context) =>
+                              LogIn()));
+                    },  style: OutlinedButton.styleFrom(foregroundColor: error, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)), )), ),
               )
             ],
           ),
