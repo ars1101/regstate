@@ -34,6 +34,8 @@ dependencies:
   timer_count_down: ^2.2.2
   url_launcher: ^6.2.4
   email_validator: ^2.1.17
+  image_picker: ^1.1.0
+  dia: ^0.1.4
   flutter:
     sdk: flutter
 

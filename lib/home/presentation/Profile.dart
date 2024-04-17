@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
 import 'package:session1_new/core/themes.dart';
 import 'package:session1_new/home/presentation/chooseplatform.dart';
+import 'package:session1_new/home/presentation/setupprofile2.dart';
 import 'package:session1_new/home/repository/supabase.dart';
 import 'package:session1_new/main.dart';
 
@@ -111,9 +113,14 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: 18,
               ),
-              Text(
-                'Редактирование профиля',
-                style: Theme.of(context).textTheme.titleMedium,
+              GestureDetector( onTap: (){Navigator.of(context)
+                  .push(MaterialPageRoute(
+                  builder: (context) =>
+                      SetupProfile2()));},
+                child: Text(
+                  'Редактирование профиля',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
               SizedBox(
                 height: 18,

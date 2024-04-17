@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:pinput/pinput.dart';
 import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
@@ -27,8 +28,9 @@ class SetupProfile2 extends StatefulWidget {
 
 List<Map<String, dynamic>> platforms = [];
 List plchan = [];
-
+Map<String, dynamic> data = {'fullname': ''};
 class _SetupProfile2State extends State<SetupProfile2> {
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,7 +39,22 @@ class _SetupProfile2State extends State<SetupProfile2> {
       allplatforms = value;
       setState(() {
       });
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        data = supabase.auth.currentUser!.userMetadata!;
+        print(data);
+        setState(() {
+          platforms = data[platforms];
+          name.text = data['fullname'];
+          phone.text = data['phone'];
+          date = data["birthday"];
+          name.setText(data['fullname']);
+          setState(() {
+              print(data);
+          });
+        });
+      });
     }));
+
   }
   bool isplat = false;
   TextEditingController name = TextEditingController();
@@ -326,7 +343,7 @@ class _SetupProfile2State extends State<SetupProfile2> {
                         width: MediaQuery.of(context).size.width - 48,
                         child: OutlinedButton(
                           child: Text(
-                            "Выход",
+                            "Отмена",
                             style: TextStyle(color: accent, ),
                           ),
                           onPressed: () {
