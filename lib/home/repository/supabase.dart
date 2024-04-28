@@ -52,5 +52,9 @@ Future<void> uploadAvatar(Uint8List bytes) async {
       )
   );
   print(name);
+}
 
+Future<List<Map<String,dynamic>>> getNews() async {
+  var res = await supabase.from("news").select();
+  return res;
 }
