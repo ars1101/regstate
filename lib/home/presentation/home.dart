@@ -7,6 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:session1_new/auth/presentation/Holder.dart';
 import 'package:session1_new/auth/presentation/login.dart';
 import 'package:session1_new/auth/widgets/customtextfield.dart';
+import 'package:session1_new/home/presentation/article.dart';
 import 'package:session1_new/home/presentation/chooseplatform.dart';
 import 'package:session1_new/home/presentation/main.dart';
 import 'package:session1_new/home/repository/supabase.dart';
@@ -101,47 +102,84 @@ class _HomePageState extends State<HomePage> {
                   }
                 }
                 print(a);
-                return Row(
-                  children: [SizedBox(width: 24,),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: Image.network(plat['icon']),
-                            ),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  a['channel'] + ' | ' + plat['title'],
-                                  style: Theme.of(context).textTheme.titleLarge,
+                return GestureDetector(onTap: (){Navigator.of(context)
+                    .push(MaterialPageRoute(
+                    builder: (context) =>
+                        Article(b: a, plat: plat)));},
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 24,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: Image.network(plat['icon']),
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                              Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    a['channel'] + ' | ' + plat['title'],
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Text(a['published_at'])
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                child: Text(
+                                  a['title'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ],
+                                width: (a['type_media'] == "photo") ? 238 : 346,
+                                height: 80,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              (a['type_media'] == "photo")
+                                  ? SizedBox(
+                                      width: 100,
+                                      height: 75,
+                                      child: Image.network(a['media']),
+                                    )
+                                  : SizedBox()
+                            ],
+                          ),SizedBox(height: 12,),
+                          SizedBox(
+                            child: Text(
+                              a['text'], softWrap: false, overflow: TextOverflow.ellipsis,
+                              maxLines: 5,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-
-
-                          ],
-                        )   ,
-                        SizedBox(height: 12,),
-                        Row(
-                          children: [
-                            SizedBox(
-                              child: Text(
-                              a['title'],
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,),
-                              ), width: (a['media'] != null)?238 : 346, height: 80,
-                            ), SizedBox(width: 8,), (a['media'] != null)?SizedBox(width: 100, height: 75, child: Image.network(a['media']),): SizedBox()
-                          ],
-                        )
-
-                      ],
-                    ),
-                  ],
+                            width: 346,
+                            height: 112,
+                          ), SizedBox(height: 12,),
+                          Container(color: Colors.black, width: MediaQuery.of(context).size.width - 44, height: 1,), SizedBox(height: 12,)
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               },
               itemCount: news.length,
